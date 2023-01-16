@@ -5,8 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
-@Entity(tableName = "user")
-data class User(
+@Entity(tableName = "contact")
+data class Contact(
 
     @ColumnInfo(name = "img")
     val img: String,

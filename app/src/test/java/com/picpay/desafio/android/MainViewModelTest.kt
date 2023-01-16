@@ -1,11 +1,10 @@
 package com.picpay.desafio.android
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.LiveData
-import com.picpay.desafio.android.model.User
-import com.picpay.desafio.android.repository.UserRepository
-import com.picpay.desafio.android.repository.local.UserDao
-import com.picpay.desafio.android.repository.network.UserService
+import com.picpay.desafio.android.model.Contact
+import com.picpay.desafio.android.repository.ContactRepository
+import com.picpay.desafio.android.repository.local.ContactDao
+import com.picpay.desafio.android.repository.network.ContactService
 import com.picpay.desafio.android.viewmodel.MainViewModel
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.Dispatchers
@@ -16,20 +15,19 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
 class MainViewModelTest {
 
     private val testDispatcher = TestCoroutineDispatcher()
     lateinit var mainViewModel: MainViewModel
-    lateinit var userRepository: UserRepository
+    lateinit var contactRepository: ContactRepository
 
     @Mock
-    lateinit var apiService: UserService
+    lateinit var apiService: ContactService
 
     @Mock
-    lateinit var userDao: UserDao
+    lateinit var contactDao: ContactDao
 
     @get:Rule
     val instantTaskExecutionRule: InstantTaskExecutorRule = InstantTaskExecutorRule()
@@ -38,8 +36,8 @@ class MainViewModelTest {
     fun setup() {
         MockitoAnnotations.initMocks(this)
         Dispatchers.setMain(testDispatcher)
-        userRepository = UserRepository(apiService, userDao)
-        mainViewModel = MainViewModel(userRepository)
+        contactRepository = ContactRepository(apiService, contactDao)
+        mainViewModel = MainViewModel(contactRepository)
     }
 
     @Test
@@ -48,7 +46,7 @@ class MainViewModelTest {
             // Mockito.`when`(userRepository.getAllUsers())
             //    .thenReturn((listOf<User>(User("image", "movie", 1, "john"))))
             val result  = mainViewModel.getUserList().value
-            assertEquals(listOf<User>(User("image", "movie", 1, "john")), result)
+            assertEquals(listOf<Contact>(Contact("image", "movie", 1, "john")), result)
         }
     }
 

@@ -1,9 +1,9 @@
 package com.picpay.desafio.android.di
 
 import android.app.Application
-import com.picpay.desafio.android.repository.local.UserDao
-import com.picpay.desafio.android.repository.local.UserDatabase
-import com.picpay.desafio.android.repository.network.UserService
+import com.picpay.desafio.android.repository.local.ContactDao
+import com.picpay.desafio.android.repository.local.ContactDatabase
+import com.picpay.desafio.android.repository.network.ContactService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,20 +20,20 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun getAppDatabase(context: Application): UserDatabase {
-        return UserDatabase.getAppDBInstance(context)
+    fun getAppDatabase(context: Application): ContactDatabase {
+        return ContactDatabase.getAppDBInstance(context)
     }
 
     @Provides
     @Singleton
-    fun getUserDao(userDatabase: UserDatabase): UserDao {
-        return userDatabase.getUserDao()
+    fun getUserDao(contactDatabase: ContactDatabase): ContactDao {
+        return contactDatabase.getUserDao()
     }
 
     @Provides
     @Singleton
-    fun getUserServiceInstance(retrofit: Retrofit): UserService {
-        return retrofit.create(UserService::class.java)
+    fun getUserServiceInstance(retrofit: Retrofit): ContactService {
+        return retrofit.create(ContactService::class.java)
     }
 
     @Provides
